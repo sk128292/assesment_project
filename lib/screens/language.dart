@@ -15,7 +15,7 @@ class LanguageScreen extends StatelessWidget {
                 height: 50,
                 child: Text(
                   "Welcome",
-                  style: TextStyle(fontSize: 45),
+                  style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(height: 100),

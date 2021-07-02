@@ -1,6 +1,43 @@
+import 'package:assesment_project/widgets/home_screen_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  List<Widget> _widgetOptions = <Widget>[
+    HomeScreenWidget(),
+    Center(
+      child: Text(
+        'Comming Soon....',
+        style: optionStyle,
+      ),
+    ),
+    Center(
+      child: Text(
+        'Empty Cart',
+        style: optionStyle,
+      ),
+    ),
+    Center(
+      child: Text(
+        'Update Your Profile',
+        style: optionStyle,
+      ),
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,35 +65,34 @@ class HomeScreen extends StatelessWidget {
         ),
         leading: IconButton(
           icon: Icon(Icons.clear_all, color: Colors.blueAccent, size: 30),
-          onPressed: () => Scaffold.of(context).openDrawer(),
+          onPressed: () {},
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              padding: EdgeInsets.fromLTRB(10, 15, 10, 0),
-              decoration: BoxDecoration(
-                color: Colors.lightBlue,
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    "Welcome You!..",
-                  ),
-                  SizedBox(height: 40),
-                ],
-              ),
-            ),
-            ListTile(
-              onTap: () {},
-              leading: Icon(Icons.home),
-              title: Text("Home", textAlign: TextAlign.left),
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, size: 30),
+            label: ' ',
+            backgroundColor: Colors.blueGrey[200],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard, size: 30),
+            label: ' ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_basket, size: 30),
+            label: ' ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_rounded, size: 30),
+            label: ' ',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
-      body: Container(),
+      body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 }
